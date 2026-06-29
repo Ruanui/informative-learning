@@ -1,0 +1,169 @@
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}% 
+\newtheorem{proposition}[theorem]{Proposition}%
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
+
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
+
+\begin{document}
+
+\title[]{A Note on Bayesian Optimal Experimental Design for Infinite Dimensional Linear Inverse Problems}
+
+\author*[1,2]{\fnm{A} \sur{A}}\email{iauthor@gmail.com}
+\equalcont{These authors contributed equally to this work.}
+
+\author[2,3]{\fnm{R} \sur{N}}\email{iiauthor@gmail.com}
+\equalcont{These authors contributed equally to this work.}
+
+\affil*[1]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{100190}, \state{State}, \country{Country}}}
+
+\affil[2]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{10587}, \state{State}, \country{Country}}}
+
+\maketitle
+
+\section{Infinite dimensions}\label{sec1}
+
+We consider optimal experimental design (OED) in the Bayesian setting for infinite dimensional linear inverse problems. In particular, let $m$ have Gaussian prior law $\mathcal{N}(m_0,\mathcal{C})$ on the Hilbert space $\mathcal{H}$. The prior covariance operator $\mathcal{C}$ is assumed to be {\em strictly} positive self-adjoint and trace class. In what follows it will useful to consider the spectral decomposition of the prior covariance operator,
+\begin{align}
+    \mathcal{C}=\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_i,\label{eq:KLexp}
+\end{align}
+where $\lambda_1\geq \lambda_2\geq\cdots$ with $\lambda_i>0$ for $i\in\{1,2,\dots\}.$ We will assume to begin with that the multiplicity of $\lambda_1$ is 1.
+
+We initially consider the set up 
+\[y=\ell(m)+e=\langle g,m\rangle_\mathcal{H} + e=Am+e,\]
+where $A\in\mathcal{L}(\mathcal{H},\mathbb{R})$ and $e\sim\mathcal{N}(0,\sigma^2_e).$ Then it is well known (see e.g., \cite[Equation (3.4b)]{stuart2010inverse}) that the posterior covariance operator is of the form
+\[\mathcal{C}_{\rm post}=\mathcal{C}-\mathcal{C}A^\ast(\sigma_e^2+A\mathcal{C}A^\ast)^{-1}A\mathcal{C}\].
+
+We are interested in the {\em direction} to measure not the {\em strength}, so we restrict ourself to the setting $AA^\ast=\|A\|_{\mathcal{H}^\ast}=1$. This (Reisz) implies that we have $\|g\|_\mathcal{H}=\|A\|_{\mathcal{H}^\ast}=1$
+
+Now, by assumption $\mathcal{C}$ is trace class, and thus we can consider the difference
+\begin{align}
+    \text{Tr}(\mathcal{C})-\text{Tr}(\mathcal{C}_{\rm post})&=\text{Tr}(\mathcal{C}A^\ast(\sigma_e^2+A\mathcal{C}A^\ast)^{-1}A\mathcal{C})\nonumber\\
+    &=\frac{1}{(\sigma_e^2+A\mathcal{C}A^\ast)}\text{Tr}(\mathcal{C}A^\ast A\mathcal{C})\nonumber\\
+    &=\frac{1}{(\sigma_e^2+A\mathcal{C}A^\ast)}\text{Tr}( A\mathcal{C}\mathcal{C}A^\ast)\nonumber\\
+    &=\frac{1}{(\sigma_e^2+A\mathcal{C}A^\ast)}  A\mathcal{C}\mathcal{C}A^\ast.\nonumber
+\end{align}
+Using the spectral decomposition (\ref{eq:KLexp}), we have
+\begin{align}
+    \text{Tr}(\mathcal{C})-\text{Tr}(\mathcal{C}_{\rm post})&=\frac{1}{(\sigma_e^2+A\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_iA^\ast)} A\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_i \sum_{j=1}^\infty\lambda_j\phi_j\otimes\phi_j A^\ast\nonumber\\
+    &=\frac{1}{(\sigma_e^2+A\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_iA^\ast)} A\sum_{i=1}^\infty\lambda_i^2\phi_i\otimes\phi_i  A^\ast\nonumber\\
+    &=\frac{1}{(\sigma_e^2+\sum_{i=1}^\infty\lambda_i(A\phi_i)^2)}\sum_{i=1}^\infty\lambda_i^2(A\phi_i)^2.\nonumber\\
+    &\leq \frac{\lambda_1}{(\sigma_e^2+\sum_{i=1}^\infty\lambda_i(A\phi_i)^2)}\sum_{i=1}^\infty\lambda_i(A\phi_i)^2,
+    \nonumber\\
+    &\leq \frac{\lambda_1^2}{(\sigma_e^2+\lambda_1\sum_{i=1}^\infty(A\phi_i)^2)}\sum_{i=1}^\infty(A\phi_i)^2,\label{eq:diff}
+\end{align}
+since for $a>0$ the function $\frac{x}{a+x}$ is increasing in $x$ and by assumption $\lambda_1\geq \lambda_2\geq\cdots$ with $\lambda_i>0$ for $i\in\{1,2,\dots\}.$ Lastly, using the fact that $\{\phi_i\}_{i=1}^{\infty}$ forms an orthonormal basis of $\mathcal{H}$, we have 
+\[A\phi_i=\langle g,\phi_i\rangle_\mathcal{H}=\left\langle \sum_{j=1}^{\infty}\langle\phi_j,g\rangle\phi_j,\phi_i\right\rangle_\mathcal{H},\]
+meaning that we have equality in (\ref{eq:diff}) when $A\phi_i=\langle \phi_1,\phi_i\rangle_\mathcal{H}$ for $i=1,2,\dots$. That is to say, the greatest decrease in the trace is when $g=\phi_1$ and is given by
+\begin{align}
+    \text{Tr}(\mathcal{C})-\text{Tr}(\mathcal{C}_{\rm post})&= \frac{1}{(\sigma_e^2+\lambda_1\sum_{i=1}^\infty(A\phi_i)^2)}\lambda_1^2\sum_{i=1}^\infty(A\phi_i)^2\nonumber\\
+    &= \frac{\lambda_1^2}{\sigma_e^2+\lambda_1}\nonumber
+\end{align}
+
+
+
+\section{Finite dimensions}
+Suppose we are interested in a parameter $\mathbb{R}^n\ni m\sim\pi(m)=\mathcal{N}(m_0,\Gamma_m)$. We {\em wish} to collect data $d\in\mathbb{R}$ related through a linear mapping of the form
+\[d=w^\top m+e,\quad w\in\mathbb{R}^n,\quad \mathbb{R}\ni e\sim\mathcal{N}(0,\sigma_e^2).\]
+Then what is the {\em best} $w\in\mathbb{R}^n$ to choose. Of course `best' is up to interpretation, but if go with reducing the uncertainty the most, then A- and D-optimality are natural metrics. In any case, the posterior covariance matrix is of the form
+\begin{align}
+   \Gamma_{\rm post}=(w\sigma_e^{-2}w^T+\Gamma_m^{-1})^{-1}=\Gamma_m-\Gamma_m w(w^\top\Gamma_m w+\sigma_e^2)^{-1}w^\top\Gamma_m.\label{eq:post} 
+\end{align}
+
+
+\paragraph{A-optimality}
+For A-optimality, the reduction in the trace from prior to posterior is given by
+\begin{align}
+    \text{tr}(\Gamma_m)-\text{tr}(\Gamma_{\rm post})&=\text{tr}(\Gamma_m w(w^\top\Gamma_m w+\sigma_e^2)^{-1}w^\top\Gamma_m)\nonumber\\
+    &=\text{tr}((w^\top\Gamma_m w+\sigma_e^2)^{-1}w^\top\Gamma_m\Gamma_m w)\nonumber\\
+    &=\frac{w^\top\Gamma_m\Gamma_m w}{w^\top\Gamma_m w+\sigma_e^2}.\label{eq:trace}
+\end{align}
+
+
+
+Now, suppose $\Gamma_m$ is a {\em proper} covariance matrix, so that we can decompose it as
+\begin{align}
+    \Gamma_m=V\Lambda V^\top, \label{eq:PCA}
+\end{align}
+where $\mathbb{R}^{n \times n}\ni V=[v_1,v_2,\dots,v_n]$, $\mathbb{R}^{\times n}\ni\Lambda=\text{diag}(\lambda_1,\lambda_2,\dots,\Lambda_n)$ with  $\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n>0$ and
+\[\Gamma_m v_i=\lambda_i v_i,\quad i=1,2,\dots n.\]
+Then the reduction in the trace (\ref{eq:trace}) is given by
+\begin{align}
+    \text{tr}(\Gamma_m)-\text{tr}(\Gamma_{\rm post})&=\frac{w^\top\Gamma_m\Gamma_m w}{w^\top\Gamma_m w+\sigma_e^2}=\frac{w^\top V\Lambda V^\top V\Lambda V^\top w}{w^\top V\Lambda V^\top w+\sigma_e^2}\nonumber\\
+    &=\frac{w^\top V\Lambda^2 V^\top w}{w^\top V\Lambda V^\top w+\sigma_e^2}.\label{eq:trace2}
+\end{align}
+
+Any $w$ can be written in terms of $V$, i.e., 
+\[w=V\beta,\quad \beta\in\mathbb{R}^n.\]
+We are only interested in the {\em direction} of the measurement, so we can restrict our attention to $\|w\|_2=\|\beta\|_2=1.$ Now, plugging this into (\ref{eq:trace2}), we have
+\begin{align}
+    \text{tr}(\Gamma_m)-\text{tr}(\Gamma_{\rm post})&=\frac{w^\top V\Lambda^2 V^\top w}{w^\top V\Lambda V^\top w+\sigma_e^2}=\frac{\beta^\top V^\top V\Lambda^2 V^\top V \beta}{\beta^\top V^\top V\Lambda V^\top  V \beta+\sigma_e^2}\nonumber\\
+    &=\frac{\beta^\top \Lambda^2 \beta}{\beta^\top \Lambda\beta+\sigma_e^2}=\frac{\sum_{i=1}^n\lambda_i^2\beta_i^2}{\sum_{i=1}^n\lambda_i\beta_i^2+\sigma_e^2}\nonumber.
+\end{align}
+Since $\beta_i^2\geq0$ and $\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n>0$, we have $\lambda_1\sum_{i=1}^n\lambda_i\beta_i^2\geq\sum_{i=1}^n\lambda_i^2\beta_i^2$, so that
+\begin{align}
+    \text{tr}(\Gamma_m)-\text{tr}(\Gamma_{\rm post})&=\frac{\sum_{i=1}^n\lambda_i^2\beta_i^2}{\sum_{i=1}^n\lambda_i\beta_i^2+\sigma_e^2}\leq\frac{\lambda_1\sum_{i=1}^n\lambda_i\beta_i^2}{\sum_{i=1}^n\lambda_i\beta_i^2+\sigma_e^2}\leq\frac{\lambda_1^2}{\lambda_1+\sigma_e^2},\nonumber
+\end{align}
+where the last inequality follows (again) from the fact that $\sum_{i=1}^n\lambda_i\beta_i^2\leq\lambda_1\sum_{i=1}^n\beta_i^2=\lambda_1$, and that $\frac{\lambda_1\sum_{i=1}^n\lambda_i\beta_i^2}{\sum_{i=1}^n\lambda_i\beta_i^2+\sigma_e^2}$ is increasing in $\lambda$. The last step is to see that equality holds if $\beta=e_1=[1,0,0,\dots,0]^T\in\mathbb{R}^n$. That is to say, setting $w=v_1$ reduces the the uncertainty the most (using A-opt).
+
+I'm thinking that if $\lambda_1=\lambda_2=\cdots=\lambda_r>\lambda_{r+1}\geq\lambda_{r+2}\geq\cdots\geq\lambda_n>0$, i.e., the largest eigenvalue has multiplicity greater than 1, then the result is something like take $w$ to be the eigenspace. But actually haven't sorted that out yet.
+
+\paragraph{D-optimality}
+For D-optimality (finite dimensional case), we will use  the{\em Matrix determinant lemma}: If $A\in\mathbb{R}^{n\times n}$ be invertible and $u,v\in\mathbb{R}^n$ then
+    \[\det{(A+uv^\top)}=\det{(1+v^\top A^{-1} u)}\det{(A)},\] 
+ and the fact that $\det(A^{-1})=\det(A)^{-1}$.
+ First,
+\begin{align}
+   \det{(\Gamma_{\rm post})}&=\det{((w\sigma_e^{-2}w^T+\Gamma_m^{-1})^{-1})}\nonumber\\
+&=\det{(w\sigma_e^{-2}w^T+\Gamma_m^{-1})}^{-1}\nonumber\\
+   &=((1+\sigma_e^{-2}w^\top\Gamma_m w)\det{(\Gamma_m^{-1})})^{-1}\nonumber\\
+   &=\frac{\det{(\Gamma_m)}}{(1+\sigma_e^{-2}w^\top\Gamma_m w)}\label{eq:detpost}
+\end{align}
+The key quantity for D-optimality is 
+\[\log{\left(\frac{\det{(\Gamma_m)}}{\det{(\Gamma_{\rm post})}}\right)}=\log\det{(\Gamma_m)}-\log\det{(\Gamma_{\rm post})}.\]
+So, looking at the log-det of the posterior covariance matrix (\ref{eq:detpost}), we have
+\begin{align}
+\log\det{(\Gamma_m)}-\log\det{(\Gamma_{\rm post})}&=\log\det{(\Gamma_m)}-\log\det{\left(\frac{\det{(\Gamma_m)}}{(1+\sigma_e^{-2}w^\top\Gamma_m w)}\right)}\nonumber\\
+&=\log\det{(\Gamma_m)}-\log\det{(\Gamma_m)}+(1+\sigma_e^{-2}w^\top\Gamma_m w)\nonumber\\
+&=\log(1+\sigma_e^{-2}w^\top\Gamma_m w)\label{eq:logdet}
+\end{align}
+
+Now, we play the same trick, and let 
+\[w=V\beta,\quad \beta\in\mathbb{R}^n,\]
+with $V$ the eigenvectors of $\Gamma_m$ (see (\ref{eq:PCA})) and $\|w\|_2=\|\beta\_2=1.$ Plugging this into (\ref{eq:logdet}) we have 
+\begin{align}
+   \log\det{(\Gamma_m)}-\log\det{(\Gamma_{\rm post})}&=\log(1+\sigma_e^{-2}\beta^\top V^\top\Gamma_m V\beta)\nonumber\\
+   &=\log(1+\sigma_e^{-2}\beta^\top\Lambda\beta)\nonumber\\
+   &=\log(1+\sigma_e^{-2}\sum_{i=1}^n\lambda_i\beta_i^2),\nonumber
+\end{align}
+which (since $\beta_i^2\geq0$ and $\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n>0$) is again maximised when $\beta=e_1=[1,0,0,\dots,0]^T\in\mathbb{R}^n$. That is to say, setting $w=v_1$ reduces the the uncertainty the most (using D-opt).
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{main}
+
+\end{document}
