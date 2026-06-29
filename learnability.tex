@@ -1,0 +1,555 @@
+\documentclass[11pt,final]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage[margin=1in]{geometry}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\mat}[1]{\mathsf{\mathbf{#1}}}
+\newcommand{\GM}[2]{\mathcal{N}\!\left( {#1}, {#2}\right)}
+\newcommand{\obs}{{y}} 
+\newcommand{\prcov}{\Gamma_{\mathrm{pr}}}
+\newcommand{\postcov}{\Gamma_{\mathrm{post}}}
+\newcommand{\noise}{\Gamma_{\mathrm{noise}}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\B}{\mathrm{B}}
+\newcommand{\F}{\mathrm{F}}
+\newcommand{\I}{\mathrm{I}}
+\newcommand{\St}{\widetilde{\mathrm{S}}}
+\newcommand{\dpar}{{m}}
+\newcommand{\dparpr}{\dpar_{\mathrm{pr}}}
+\newcommand{\dparpost}{\dpar_{\mathrm{post}}}
+\newcommand{\priorm}{\mu_{\mathrm{pr}}}
+\newcommand{\postm}{\mu_{\mathrm{post}}}
+\newcommand{\priorml}{\mu_{\mathrm{pr}}^\ell}
+\newcommand{\postml}{\mu_{\mathrm{post}}^\ell}
+\newcommand{\tran}{{\mkern-1.5mu\mathsf{T}}}
+\newcommand{\ip}[2]{\langle {#1}, {#2}\rangle}
+\newcommand{\lprmean}{\ell_\text{pr}^\text{mean}}
+\newcommand{\lprsig}{\ell_\text{pr}^\text{var}}
+\newcommand{\lpostmean}{\ell_\text{post}^\text{mean}}
+\newcommand{\lpostsig}{\ell_\text{post}^\text{var}}
+%\newcommand{\Gammay}{{\Gamma}_{y}}
+\newcommand{\Gammay}{\Sigma}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\RR}{\mathcal{R}}
+\newcommand{\LL}{\mathfrak{L}}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\newcommand{\CM}{\mathcal{E}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+
+\title{Some questions of learnability in linear inverse problems}
+\author{Alen Alexanderian and Ruanui Nicholson}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We consider infinite-dimensional linear inverse problems 
+of estimating $m$ from the observation model $y = \F m + \eta$. 
+We study two questions: (i) Given a fixed prior, to what extent $m$ 
+is learnable if we are free to choose $\F$? (ii) given 
+a fixed prior and $\F$, which linear prediction functionals of $m$ 
+are most learnable? 
+\end{abstract}
+
+\section{Introduction}
+Insert intro here.
+
+\section{Preliminaries}
+
+Let $\M$ be an infinite-dimensional real separable Hilbert space, and let
+$\F\in \mathcal{L}(\M,\R^q)$.
+Consider the linear inverse problem of estimating $\dpar \in \M$ from the observation 
+model
+\[
+    \obs = \F \dpar + {\eta},
+\]
+where ${\eta} \sim \GM{0}{\noise}$ and $\noise\in\R^{q\times q}$ is symmetric
+positive definite. We assume a Gaussian prior 
+$\GM{\dparpr}{\prcov}$.
+Herein, $\dparpr\in\M$ and 
+$\prcov$ is a strictly positive selfadjoint trace class operator on $\M$.
+The posterior distribution is Gaussian 
+$\postm = \GM{\dparpost}{\postcov}$. 
+In particular, 
+letting 
+\begin{equation}\label{equ:Gammay}
+\Sigma \defeq \F\prcov\F^*+\noise,
+\end{equation} 
+the posterior mean and covariance can be represented as 
+\[
+\begin{aligned}
+    \dparpost &= \dparpr + \prcov \F^* \Gammay^{-1} (\obs-\F\dparpr),
+    \\
+    \postcov &= \prcov - \prcov \F^* \Gammay^{-1} \F\prcov.
+\end{aligned}
+\]
+We consider posterior uncertainty in bounded linear functionals 
+of the inversion parameter. 
+In the analysis that follows, it will be convenient to work 
+with the associated Riesz maps:
+\begin{definition}
+Let $\hilb$ be a real Hilbert space with inner product
+$\ip{\cdot}{\cdot}_{\hilb}$.
+The \emph{Riesz map} of $\hilb$ is the mapping
+$\RR_{\hilb}:\hilb\to\hilb'$
+defined by
+\[
+\bigl(\RR_{\hilb}v\bigr)(x)
+=
+\ip{v}{x}_{\hilb},
+\qquad \text{for all } v,x\in\hilb.
+\]
+The Riesz map is a linear isometric isomorphism.
+Further, by the Riesz Representation Theorem,
+every $\ell\in\hilb'$ admits a unique representation
+\[
+\ell(x)=\ip{v_\ell}{x}_{\hilb},
+\qquad \text{for all } x\in\hilb,
+\]
+with $v_\ell=\RR_{\hilb}^{-1}\ell$.
+\end{definition}
+
+Consider a bounded linear functional $\ell$ on $\M$ and let 
+$v_\ell \defeq \RR_\hilb^{-1}\ell$ be its Riesz representer,
+\begin{equation}\label{equ:functional}
+    \ell(\dpar)
+    =
+    \ip{v_\ell}{\dpar}.
+\end{equation}
+Denote the posterior and prior laws of $\ell$ by
+$\priorml$ and $\postml$, respectively.
+Since $\ell$ is linear, these measures are both Gaussian: 
+$\priorml = \GM{\lprmean}{\lprsig}$ and $\postml = \GM{\lpostmean}{\lpostsig}$ 
+with 
+\begin{subequations}\label{equ:moments}
+\begin{align}
+\lprmean &= \ell(\dparpr),\\
+\lprsig &= \ip{v_\ell}{\prcov v_\ell},\\
+    \lpostmean 
+        &= \ell(\dparpr) + \ip{\F\prcov v_\ell}{\Gammay^{-1} (\obs-\F\dparpr)},\\
+    \lpostsig 
+        &= \ip{\prcov  v_\ell}{v_\ell} - \ip{\F\prcov v_\ell}{\Gammay^{-1}(\F\prcov v_\ell)}.
+\end{align}
+\end{subequations}
+
+\section{Informativeness of the forward model}
+\subsection{Infinite dimensions}
+
+We consider optimal experimental design (OED) in the Bayesian setting for infinite dimensional linear inverse problems. In particular, let $m$ have Gaussian prior law $\mathcal{N}(m_0,\mathcal{C})$ on the Hilbert space $\mathcal{H}$. The prior covariance operator $\mathcal{C}$ is assumed to be {\em strictly} positive self-adjoint and trace class. In what follows it will useful to consider the spectral decomposition of the prior covariance operator,
+\begin{align}
+    \mathcal{C}=\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_i,\label{eq:KLexp}
+\end{align}
+where $\lambda_1\geq \lambda_2\geq\cdots$ with $\lambda_i>0$ for $i\in\{1,2,\dots\}.$ We will assume to begin with that the multiplicity of $\lambda_1$ is 1.
+
+We initially consider the set up 
+\[y=\ell(m)+e=\langle g,m\rangle_\mathcal{H} + e=Am+e,\]
+where $A\in\mathcal{L}(\mathcal{H},\mathbb{R})$ and $e\sim\mathcal{N}(0,\sigma^2_e).$ Then it is well known (see e.g., \cite[Equation (3.4b)]{stuart2010inverse}) that the posterior covariance operator is of the form
+\[\mathcal{C}_{\rm post}=\mathcal{C}-\mathcal{C}A^\ast(\sigma_e^2+A\mathcal{C}A^\ast)^{-1}A\mathcal{C}\].
+
+We are interested in the {\em direction} to measure not the {\em strength}, so we restrict ourself to the setting $AA^\ast=\|A\|_{\mathcal{H}^\ast}=1$. This (Reisz) implies that we have $\|g\|_\mathcal{H}=\|A\|_{\mathcal{H}^\ast}=1$
+
+Now, by assumption $\mathcal{C}$ is trace class, and thus we can consider the difference
+\begin{align}
+    \text{Tr}(\mathcal{C})-\text{Tr}(\mathcal{C}_{\rm post})&=\text{Tr}(\mathcal{C}A^\ast(\sigma_e^2+A\mathcal{C}A^\ast)^{-1}A\mathcal{C})\nonumber\\
+    &=\frac{1}{(\sigma_e^2+A\mathcal{C}A^\ast)}\text{Tr}(\mathcal{C}A^\ast A\mathcal{C})\nonumber\\
+    &=\frac{1}{(\sigma_e^2+A\mathcal{C}A^\ast)}\text{Tr}( A\mathcal{C}\mathcal{C}A^\ast)\nonumber\\
+    &=\frac{1}{(\sigma_e^2+A\mathcal{C}A^\ast)}  A\mathcal{C}\mathcal{C}A^\ast.\nonumber
+\end{align}
+Using the spectral decomposition (\ref{eq:KLexp}), we have
+\begin{align}
+    \text{Tr}(\mathcal{C})-\text{Tr}(\mathcal{C}_{\rm post})&=\frac{1}{(\sigma_e^2+A\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_iA^\ast)} A\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_i \sum_{j=1}^\infty\lambda_j\phi_j\otimes\phi_j A^\ast\nonumber\\
+    &=\frac{1}{(\sigma_e^2+A\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_iA^\ast)} A\sum_{i=1}^\infty\lambda_i^2\phi_i\otimes\phi_i  A^\ast\nonumber\\
+    &=\frac{1}{(\sigma_e^2+\sum_{i=1}^\infty\lambda_i(A\phi_i)^2)}\sum_{i=1}^\infty\lambda_i^2(A\phi_i)^2.\nonumber\\
+    &\leq \frac{\lambda_1}{(\sigma_e^2+\sum_{i=1}^\infty\lambda_i(A\phi_i)^2)}\sum_{i=1}^\infty\lambda_i(A\phi_i)^2,
+    \nonumber\\
+    &\leq \frac{\lambda_1^2}{(\sigma_e^2+\lambda_1\sum_{i=1}^\infty(A\phi_i)^2)}\sum_{i=1}^\infty(A\phi_i)^2,\label{eq:diff}
+\end{align}
+since for $a>0$ the function $\frac{x}{a+x}$ is increasing in $x$ and by assumption $\lambda_1\geq \lambda_2\geq\cdots$ with $\lambda_i>0$ for $i\in\{1,2,\dots\}.$ Lastly, using the fact that $\{\phi_i\}_{i=1}^{\infty}$ forms an orthonormal basis of $\mathcal{H}$, we have 
+\[A\phi_i=\langle g,\phi_i\rangle_\mathcal{H}=\left\langle \sum_{j=1}^{\infty}\langle\phi_j,g\rangle\phi_j,\phi_i\right\rangle_\mathcal{H},\]
+meaning that we have equality in (\ref{eq:diff}) when $A\phi_i=\langle \phi_1,\phi_i\rangle_\mathcal{H}$ for $i=1,2,\dots$. That is to say, the greatest decrease in the trace is when $g=\phi_1$ and is given by
+\begin{align}
+    \text{Tr}(\mathcal{C})-\text{Tr}(\mathcal{C}_{\rm post})&= \frac{1}{(\sigma_e^2+\lambda_1\sum_{i=1}^\infty(A\phi_i)^2)}\lambda_1^2\sum_{i=1}^\infty(A\phi_i)^2\nonumber\\
+    &= \frac{\lambda_1^2}{\sigma_e^2+\lambda_1}\nonumber
+\end{align}
+
+
+
+\subsection{Finite dimensions}
+Suppose we are interested in a parameter $\mathbb{R}^n\ni m\sim\pi(m)=\mathcal{N}(m_0,\Gamma_m)$. We {\em wish} to collect data $d\in\mathbb{R}$ related through a linear mapping of the form
+\[d=w^\top m+e,\quad w\in\mathbb{R}^n,\quad \mathbb{R}\ni e\sim\mathcal{N}(0,\sigma_e^2).\]
+Then what is the {\em best} $w\in\mathbb{R}^n$ to choose. Of course `best' is up to interpretation, but if go with reducing the uncertainty the most, then A- and D-optimality are natural metrics. In any case, the posterior covariance matrix is of the form
+\begin{align}
+   \Gamma_{\rm post}=(w\sigma_e^{-2}w^T+\Gamma_m^{-1})^{-1}=\Gamma_m-\Gamma_m w(w^\top\Gamma_m w+\sigma_e^2)^{-1}w^\top\Gamma_m.\label{eq:post} 
+\end{align}
+
+
+\paragraph{A-optimality}
+For A-optimality, the reduction in the trace from prior to posterior is given by
+\begin{align}
+    \text{tr}(\Gamma_m)-\text{tr}(\Gamma_{\rm post})&=\text{tr}(\Gamma_m w(w^\top\Gamma_m w+\sigma_e^2)^{-1}w^\top\Gamma_m)\nonumber\\
+    &=\text{tr}((w^\top\Gamma_m w+\sigma_e^2)^{-1}w^\top\Gamma_m\Gamma_m w)\nonumber\\
+    &=\frac{w^\top\Gamma_m\Gamma_m w}{w^\top\Gamma_m w+\sigma_e^2}.\label{eq:trace}
+\end{align}
+
+
+
+Now, suppose $\Gamma_m$ is a {\em proper} covariance matrix, so that we can decompose it as
+\begin{align}
+    \Gamma_m=V\Lambda V^\top, \label{eq:PCA}
+\end{align}
+where $\mathbb{R}^{n \times n}\ni V=[v_1,v_2,\dots,v_n]$, $\mathbb{R}^{\times n}\ni\Lambda=\text{diag}(\lambda_1,\lambda_2,\dots,\Lambda_n)$ with  $\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n>0$ and
+\[\Gamma_m v_i=\lambda_i v_i,\quad i=1,2,\dots n.\]
+Then the reduction in the trace (\ref{eq:trace}) is given by
+\begin{align}
+    \text{tr}(\Gamma_m)-\text{tr}(\Gamma_{\rm post})&=\frac{w^\top\Gamma_m\Gamma_m w}{w^\top\Gamma_m w+\sigma_e^2}=\frac{w^\top V\Lambda V^\top V\Lambda V^\top w}{w^\top V\Lambda V^\top w+\sigma_e^2}\nonumber\\
+    &=\frac{w^\top V\Lambda^2 V^\top w}{w^\top V\Lambda V^\top w+\sigma_e^2}.\label{eq:trace2}
+\end{align}
+
+Any $w$ can be written in terms of $V$, i.e., 
+\[w=V\beta,\quad \beta\in\mathbb{R}^n.\]
+We are only interested in the {\em direction} of the measurement, so we can restrict our attention to $\|w\|_2=\|\beta\|_2=1.$ Now, plugging this into (\ref{eq:trace2}), we have
+\begin{align}
+    \text{tr}(\Gamma_m)-\text{tr}(\Gamma_{\rm post})&=\frac{w^\top V\Lambda^2 V^\top w}{w^\top V\Lambda V^\top w+\sigma_e^2}=\frac{\beta^\top V^\top V\Lambda^2 V^\top V \beta}{\beta^\top V^\top V\Lambda V^\top  V \beta+\sigma_e^2}\nonumber\\
+    &=\frac{\beta^\top \Lambda^2 \beta}{\beta^\top \Lambda\beta+\sigma_e^2}=\frac{\sum_{i=1}^n\lambda_i^2\beta_i^2}{\sum_{i=1}^n\lambda_i\beta_i^2+\sigma_e^2}\nonumber.
+\end{align}
+Since $\beta_i^2\geq0$ and $\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n>0$, we have $\lambda_1\sum_{i=1}^n\lambda_i\beta_i^2\geq\sum_{i=1}^n\lambda_i^2\beta_i^2$, so that
+\begin{align}
+    \text{tr}(\Gamma_m)-\text{tr}(\Gamma_{\rm post})&=\frac{\sum_{i=1}^n\lambda_i^2\beta_i^2}{\sum_{i=1}^n\lambda_i\beta_i^2+\sigma_e^2}\leq\frac{\lambda_1\sum_{i=1}^n\lambda_i\beta_i^2}{\sum_{i=1}^n\lambda_i\beta_i^2+\sigma_e^2}\leq\frac{\lambda_1^2}{\lambda_1+\sigma_e^2},\nonumber
+\end{align}
+where the last inequality follows (again) from the fact that $\sum_{i=1}^n\lambda_i\beta_i^2\leq\lambda_1\sum_{i=1}^n\beta_i^2=\lambda_1$, and that $\frac{\lambda_1\sum_{i=1}^n\lambda_i\beta_i^2}{\sum_{i=1}^n\lambda_i\beta_i^2+\sigma_e^2}$ is increasing in $\lambda$. The last step is to see that equality holds if $\beta=e_1=[1,0,0,\dots,0]^T\in\mathbb{R}^n$. That is to say, setting $w=v_1$ reduces the the uncertainty the most (using A-opt).
+
+I'm thinking that if $\lambda_1=\lambda_2=\cdots=\lambda_r>\lambda_{r+1}\geq\lambda_{r+2}\geq\cdots\geq\lambda_n>0$, i.e., the largest eigenvalue has multiplicity greater than 1, then the result is something like take $w$ to be the eigenspace. But actually haven't sorted that out yet.
+
+\paragraph{D-optimality}
+For D-optimality (finite dimensional case), we will use  the{\em Matrix determinant lemma}: If $A\in\mathbb{R}^{n\times n}$ be invertible and $u,v\in\mathbb{R}^n$ then
+    \[\det{(A+uv^\top)}=\det{(1+v^\top A^{-1} u)}\det{(A)},\] 
+ and the fact that $\det(A^{-1})=\det(A)^{-1}$.
+ First,
+\begin{align}
+   \det{(\Gamma_{\rm post})}&=\det{((w\sigma_e^{-2}w^T+\Gamma_m^{-1})^{-1})}\nonumber\\
+&=\det{(w\sigma_e^{-2}w^T+\Gamma_m^{-1})}^{-1}\nonumber\\
+   &=((1+\sigma_e^{-2}w^\top\Gamma_m w)\det{(\Gamma_m^{-1})})^{-1}\nonumber\\
+   &=\frac{\det{(\Gamma_m)}}{(1+\sigma_e^{-2}w^\top\Gamma_m w)}\label{eq:detpost}
+\end{align}
+The key quantity for D-optimality is 
+\[\log{\left(\frac{\det{(\Gamma_m)}}{\det{(\Gamma_{\rm post})}}\right)}=\log\det{(\Gamma_m)}-\log\det{(\Gamma_{\rm post})}.\]
+So, looking at the log-det of the posterior covariance matrix (\ref{eq:detpost}), we have
+\begin{align}
+\log\det{(\Gamma_m)}-\log\det{(\Gamma_{\rm post})}&=\log\det{(\Gamma_m)}-\log\det{\left(\frac{\det{(\Gamma_m)}}{(1+\sigma_e^{-2}w^\top\Gamma_m w)}\right)}\nonumber\\
+&=\log\det{(\Gamma_m)}-\log\det{(\Gamma_m)}+(1+\sigma_e^{-2}w^\top\Gamma_m w)\nonumber\\
+&=\log(1+\sigma_e^{-2}w^\top\Gamma_m w)\label{eq:logdet}
+\end{align}
+
+Now, we play the same trick, and let 
+\[w=V\beta,\quad \beta\in\mathbb{R}^n,\]
+with $V$ the eigenvectors of $\Gamma_m$ (see (\ref{eq:PCA})) and $\|w\|_2=\|\beta\_2=1.$ Plugging this into (\ref{eq:logdet}) we have 
+\begin{align}
+   \log\det{(\Gamma_m)}-\log\det{(\Gamma_{\rm post})}&=\log(1+\sigma_e^{-2}\beta^\top V^\top\Gamma_m V\beta)\nonumber\\
+   &=\log(1+\sigma_e^{-2}\beta^\top\Lambda\beta)\nonumber\\
+   &=\log(1+\sigma_e^{-2}\sum_{i=1}^n\lambda_i\beta_i^2),\nonumber
+\end{align}
+which (since $\beta_i^2\geq0$ and $\lambda_1\geq\lambda_2\geq\cdots\geq\lambda_n>0$) is again maximised when $\beta=e_1=[1,0,0,\dots,0]^T\in\mathbb{R}^n$. That is to say, setting $w=v_1$ reduces the the uncertainty the most (using D-opt).
+
+
+\section{Learnability of linear prediction functionals}
+Let $\CM \defeq \operatorname{Ran}(\prcov^{1/2})$
+denote the Cameron--Martin space associated with the prior. 
+This space is equipped with the
+inner product
+\[
+    \ip{h_1}{h_2}_{\CM}
+    \defeq
+    \ip{\prcov^{-1/2}h_1}{\prcov^{-1/2}h_2},
+    \qquad h_1,h_2\in\CM.
+\]
+The restriction of $\ell$ to $\CM$ has the Riesz representer
+\begin{equation}\label{equ:CMrep}
+    r_\ell \defeq \RR^{-1}_\CM (\ell\mid_\CM) = \prcov v_\ell.
+\end{equation}
+We call $r_\ell$ the Cameron--Martin representer of $\ell$.
+In particular, for every $h\in\CM$,
+$\ell(h)=\ip{v_\ell}{h}=\ip{r_\ell}{h}_{\CM}$.
+
+\begin{proposition}\label{prp:unlearnable}
+The posterior law of $\ell$ coincides with its prior law if and only if
+its Cameron--Martin representer belongs to $\ker(\F)$.
+\end{proposition}
+\begin{proof}
+Let $r_\ell$ be the Cameron--Martin representer of $\ell$ as in~\eqref{equ:CMrep}.
+Note that if $r_\ell\in\ker(\F)$, then 
+by~\eqref{equ:moments}, the prior and posterior laws of $\ell$ have the same
+mean and variance. Since both laws are Gaussian, they coincide.
+Conversely, assume the posterior law of $\ell$ coincides with its prior
+law. Thus, $\lprsig = \lpostsig$ and therefore 
+$\ip{\F r_\ell}{\Gammay^{-1}(\F r_\ell)} = 0$.
+Since $\Gammay$ is strictly positive, 
+$\F r_\ell=0$.
+\end{proof}
+This result shows that a prediction functional remains entirely uninformed by data
+when its Cameron--Martin representer lies in $\ker(\F)$. 
+\begin{remark}
+The condition in Proposition~\ref{prp:unlearnable} has a simple statistical
+interpretation. Under the joint prior law of $(m,y)$, we have
+\begin{equation}\label{equ:derivation}
+\begin{aligned}
+\Cov\bigl(y,\ell(m)\bigr)
+&=
+\mathbb{E}\!\left[
+\bigl(y-\mathbb{E}[y]\bigr)
+\bigl(\ell(m)-\mathbb{E}[\ell(m)]\bigr)
+\right] \\
+&=
+\mathbb{E}\!\left[
+\bigl(\F(m-\dparpr)+\eta\bigr)
+\ip{v_\ell}{m-\dparpr}
+\right] \\
+&=
+\F\mathbb{E}\!\left[
+(m-\dparpr)\ip{v_\ell}{m-\dparpr}
+\right]
++
+\mathbb{E}\!\left[
+\eta\ip{v_\ell}{m-\dparpr}
+\right] \\
+&=
+\F\prcov v_\ell
+=
+\F r_\ell.
+\end{aligned}
+\end{equation}
+Hence, $r_\ell\in\ker(\F)$ if and only if $\ell(m)$ is uncorrelated with the
+observations. Since $(\ell(m),y)$ is jointly Gaussian, this is equivalent to
+independence.  Thus, the posterior law of $\ell$ coincides with its prior law
+precisely when $\ell(m)$ is independent of the data.
+
+To justify the derivation in~\eqref{equ:derivation}
+we note that the second term in the third line vanishes by the independence of $m$
+and $\eta$, and the final equality follows from the definition of the prior
+covariance operator. Namely,
+for an arbitrary $w\in\M$, 
+\[
+\ip{
+\mathbb{E}\!\left[
+(m-\dparpr)\ip{v_\ell}{m-\dparpr}
+\right]
+}{w}
+=
+\mathbb{E}\!\left[
+\ip{v_\ell}{m-\dparpr}
+\ip{m-\dparpr}{w}
+\right] 
+=
+\ip{\prcov v_\ell}{w}.
+\]
+Thus,
+$\mathbb{E}[(m-\dparpr)\ip{v_\ell}{m-\dparpr}]
+=
+\prcov v_\ell$.
+We have also used the fact that 
+for the Bochner integrable $\M$-valued random variable 
+$X \defeq (m-\dparpr)\ip{v_\ell}{m-\dparpr}$,
+$\ip{\mathbb{E}[X]}{w} = \mathbb{E}\!\left[\ip{X}{w}\right]$.
+\end{remark}
+
+As a measure of learnability of a linear functional, we consider 
+the relative variance reduction
+\[
+    \LL(\ell)
+    \defeq
+    \frac{\lprsig-\lpostsig}{\lprsig}.
+\]
+We will refer to this ratio as the \emph{learnability} ratio.
+Proposition~\ref{prp:unlearnable} identifies linear 
+prediction functionals for which $\LL(\ell) = 0$. 
+More generally, we can quantify the learnability of 
+linear functionals by considering their learnability ratio. 
+We first record the following basic result: 
+\begin{lemma}
+For each $\ell \in \M'$,
+the learnability ratio satisfies the following:
+\begin{enumerate}
+\item $\LL(\ell) \in [0, 1]$; and 
+\item 
+letting $\Gammay$ be as in~\eqref{equ:Gammay},
+we have 
+\begin{equation}\label{equ:LL}
+\LL(\ell) =  
+\frac{\ip{\F\prcov v_\ell}{\Gammay^{-1} (\F\prcov v_\ell)}}{\ip{\prcov v_\ell}{v_\ell}}. 
+\end{equation}
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+The result follows from the definition of the prior and posterior laws of 
+$\ell$.
+\end{proof}
+
+We next consider the following operator, which plays a key role in the analysis that follows.
+\begin{equation}\label{equ:St}
+    \St \defeq \prcov^{1/2}\F^*\Gammay^{-1}\F\prcov^{1/2}.
+\end{equation} 
+The dominant eigenvectors of $\St$ determine a set of canonical learnable directions.
+We first note the following basic result.
+\begin{lemma}\label{lem:S-spectrum}
+The following hold.
+\begin{enumerate}
+\item $\St$ is a bounded self-adjoint operator;
+\item  $0\preceq \St \prec \I$;
+\item  if $\F \neq 0$, then $\St \neq 0$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+The boundedness and self-adjoint property are straightforward to note.
+To show (2), we first note 
+that 
+\[
+\St
+=
+\bigl(\Gammay^{-1/2}\F\prcov^{1/2}\bigr)^*
+\bigl(\Gammay^{-1/2}\F\prcov^{1/2}\bigr)
+\succeq 0.
+\]
+To see $\St \prec \I$, we factorize $\St$ as follows: 
+let
+$\B\defeq \noise^{-1/2}\F\prcov^{1/2}$ and note that
+$\St = \B^*(\I+\B\B^*)^{-1}\B$.
+Subsequently, the identity
+\[
+    \I-\B^*(\I+\B\B^*)^{-1}\B
+    =
+    (\I+\B^*\B)^{-1}
+\]
+yields
+$\I-\St=(\I+\B^*\B)^{-1}\succ0$.
+Hence, $0\preceq\St\prec \I$. 
+To see (3), note that since 
+$\Gammay \succ 0$, $\St = 0$ implies $\F\prcov^{1/2} = 0$.  
+This along with 
+density of $\operatorname{Ran}(\prcov^{1/2})$ and boundedness of $\F$ imply
+$\F=0$. 
+\end{proof}
+Note that as long as $\F \neq 0$, which is an underlying assumption, we have $\St\neq0$. 
+In particular, we have that $\lambda_{\max}(\St) \in (0, 1)$. 
+
+
+\begin{proposition}\label{prp:max-learnability}
+Among all nonzero bounded linear functionals
+$\ell\in\M'$, the learnability ratio $\LL(\ell)$ is maximized by
+$\ell^* \defeq \RR_{\M}\bigl(\prcov^{-1/2}w\bigr)$,
+where $w$ is an eigenvector corresponding to the largest eigenvalue of
+$\St$ in~\eqref{equ:St}. Also,
+\[
+    \max_{\ell\in\M'\setminus\{0\}}\LL(\ell)
+    =
+    \lambda_{\max}(\St).
+\]
+\end{proposition}
+\begin{proof}
+Note that $w = \lambda_{\max}(\St)^{-1}\St w \in \operatorname{Ran}(\prcov^{1/2})$.
+Thus, $\prcov^{-1/2}w$ is well-defined.
+
+Next, let $\ell\in\M'\setminus\{0\}$ and consider
+\[
+    v_\ell\defeq \RR_{\M}^{-1}\ell \quad\text{and}\quad
+    r_\ell
+    \defeq
+    \RR_{\CM}^{-1}\bigl(\ell|_{\CM}\bigr) = \prcov v_\ell.
+\]
+Hence, 
+letting 
+$z_\ell\defeq \prcov^{-1/2}r_\ell = \prcov^{1/2}v_\ell$, 
+it follows from~\eqref{equ:LL} that
+\[
+    \LL(\ell)
+    =
+    \frac{\ip{\St z_\ell}{z_\ell}}{\ip{z_\ell}{z_\ell}}
+    \leq
+    \lambda_{\max}(\St).
+\]
+Finally, taking
+$\ell^*\defeq\RR_{\M}\bigl(\prcov^{-1/2}w\bigr)$
+yields $z_\ell=w$, and thus
+$\LL(\ell^*)=\lambda_{\max}(\St)$.
+\end{proof}
+
+\begin{remark}
+Let $\{w_j\}_{j\geq 1}$ denote orthonormal eigenvectors of $\St$
+corresponding to its positive eigenvalues $\{\lambda_j\}_{j\geq 1}$.
+Since
+$w_j = \lambda_j^{-1}\St w_j \in \operatorname{Ran}(\prcov^{1/2})$,
+the vectors
+$v_j \defeq \prcov^{-1/2}w_j$
+are well-defined. The associated functionals
+\[
+    \ell_j(\dpar) \defeq \ip{v_j}{\dpar}
+\]
+may be viewed as canonical prediction functionals for the inverse problem.
+Their learnability ratio satisfy
+$\LL(\ell_j)=\lambda_j$.
+Hence, they are ordered according to the relative reduction in their prior
+variances induced by the observations.
+\end{remark}
+
+In practice, one does not get to choose an arbitrary prediction 
+functional aligned with eigenvectors of $\St$. However, one might 
+have to choose between several physically meaningful prediction/goal 
+functionals. The following result provides a quantitative estimate:
+\begin{proposition}\label{prop:learnability-bound}
+Let $\ell\in\M'\setminus\{0\}$, and let $r_\ell$ denote its
+Cameron--Martin representer. Then the following hold.
+\begin{enumerate}
+\item
+For every $\epsilon\geq0$,
+$\LL(\ell)\leq\epsilon$
+if and only if
+$\|\Gammay^{-1/2}\F r_\ell\| \leq \epsilon^{1/2}\|r_\ell\|_{\CM}$.
+\item
+We have $\LL(\ell)\leq\epsilon$ whenever
+$\|\noise^{-1/2}\F r_\ell\| \leq \epsilon^{1/2}\|r_\ell\|_{\CM}$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+To see (1), note that by the definition of $r_\ell$,
+%\[
+%    r_\ell=\prcov v_\ell, \qquad \|r_\ell\|_{\CM} = \|\prcov^{1/2}v_\ell\|.
+%\]
+%Hence,
+\begin{equation}\label{equ:LLCM}
+    \LL(\ell)
+    =
+    \frac{\|\Gammay^{-1/2}\F r_\ell\|^2}{\|r_\ell\|_{\CM}^2},
+\end{equation}
+Further, we note that $\Gammay^{-1}\preceq\noise^{-1}$.
+Therefore,
+$\|\Gammay^{-1/2}\F r_\ell\| \leq \|\noise^{-1/2}\F r_\ell\|$.
+Thus, (2) follows from (1).
+\end{proof}
+The first statement of the above result 
+provides an exact characterization of the learnability ratio in
+terms of the Cameron--Martin representer $r_\ell$. In particular, the quantity
+in the right hand side of~\eqref{equ:LLCM}
+may be used to assess the learnability
+of a prescribed prediction functional. Moreover,  
+the second statement of the proposition gives a sufficient condition involving the noise covariance alone.
+Thus, if the whitened image $\noise^{-1/2}\F r_\ell$ is small relative
+to the Cameron--Martin norm of $r_\ell$, then $\ell$ is poorly learnable.
+
+\section{Conclusion}
+Insert conclusions here.
+
+
+\bibliographystyle{plain}
+\bibliography{main}
+\end{document}
