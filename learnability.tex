@@ -563,6 +563,28 @@ to the Cameron--Martin norm of $r_\ell$, then $\ell$ is poorly learnable.
 Insert conclusions here.
 
 
+
+\section{One Dimensional Example}
+Suppose 
+\[\obs=\langle g,m\rangle=\B u +e,\]
+
+with $u$ satisfying
+\begin{equation}
+\begin{aligned}\label{eq: fwd}
+-\frac{d}{dx}(\kappa(x)\frac{d}{dx}u)&=m\quad \text{in } (0,1)\\
+u(0)&=u(1)=0,
+\end{aligned}
+\end{equation}
+with $\kappa>0$ up to us. Assume we measure in an interval (ball) of radius $r>0$ so that 
+
+\[\B u:=\int_{x_0-r}^{x_0+r} u(x) \;dx\]
+
+Then we can write the measurement (in terms of $m$) as
+
+\[\B u= \int_{x_0-r}^{x_0+r}  \int_{0}^{1} G(s,x;\kappa)m \;dx\;ds=  \int_{0}^{1} \int_{x_0-r}^{x_0+r} G(s,x;\kappa)m \;ds\;dx=\langle g_\kappa,m\rangle,\]
+with $G(s,x;\kappa)$ the Green's function related to (\ref{eq: fwd}), and $g_\kappa=\int_{x_0-r}^{x_0+r} G(s,x;\kappa)\;ds$. Now, if $\mathcal{C}=\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_i$,
+we want to try to select $\kappa$ such that $g_\kappa=\phi_1$, that is pick $\kappa$ such that $\int_{x_0-r}^{x_0+r} G(s,x;\kappa)\;ds=\phi_1$. Clearly $\phi_1$ is dependent on the choice of $\mathcal{C}$. As a concrete example, suppose $\mathcal{C}=\mathcal{A}^{-2}$ with $\mathcal{A}:=\alpha I -\Delta$ with homogeneous Dirichlet boundary conditions. Then $\phi_1=\sin(\pi x)$.
+
 \bibliographystyle{plain}
 \bibliography{main}
 \end{document}
