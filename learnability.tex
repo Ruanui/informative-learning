@@ -2,6 +2,7 @@
 
 \usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
 \usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
 
 \renewcommand{\vec}[1]{\boldsymbol{#1}}
 \newcommand{\defeq}{\vcentcolon=}
@@ -566,7 +567,7 @@ Insert conclusions here.
 
 \section{One Dimensional Example}
 Suppose 
-\[\obs=\langle g,m\rangle=\B u +e,\]
+\[\obs=\langle g,m\rangle+e=\B u +e,\]
 
 with $u$ satisfying
 \begin{equation}
@@ -575,16 +576,40 @@ with $u$ satisfying
 u(0)&=u(1)=0,
 \end{aligned}
 \end{equation}
-with $\kappa>0$ up to us. Assume we measure in an interval (ball) of radius $r>0$ so that 
+with $\kappa>0$ up to us. It will be useful to let $\mathcal{L}=-\frac{d}{dx}(\kappa(x)\frac{d}{dx})$. Assume we measure in an interval (ball) of radius $r>0$ so that 
 
 \[\B u:=\int_{x_0-r}^{x_0+r} u(x) \;dx\]
 
 Then we can write the measurement (in terms of $m$) as
 
-\[\B u= \int_{x_0-r}^{x_0+r}  \int_{0}^{1} G(s,x;\kappa)m \;dx\;ds=  \int_{0}^{1} \int_{x_0-r}^{x_0+r} G(s,x;\kappa)m \;ds\;dx=\langle g_\kappa,m\rangle,\]
+\[\B u= \int_{x_0-r}^{x_0+r}  \int_{0}^{1} G(s,x;\kappa)m(x) \;dx\;ds=  \int_{0}^{1} \int_{x_0-r}^{x_0+r} G(s,x;\kappa) \;ds\; m(x)\;dx=\langle g_\kappa,m\rangle,\]
 with $G(s,x;\kappa)$ the Green's function related to (\ref{eq: fwd}), and $g_\kappa=\int_{x_0-r}^{x_0+r} G(s,x;\kappa)\;ds$. Now, if $\mathcal{C}=\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_i$,
-we want to try to select $\kappa$ such that $g_\kappa=\phi_1$, that is pick $\kappa$ such that $\int_{x_0-r}^{x_0+r} G(s,x;\kappa)\;ds=\phi_1$. Clearly $\phi_1$ is dependent on the choice of $\mathcal{C}$. As a concrete example, suppose $\mathcal{C}=\mathcal{A}^{-2}$ with $\mathcal{A}:=\alpha I -\Delta$ with homogeneous Dirichlet boundary conditions. Then $\phi_1=\sin(\pi x)$.
-
+we want to try to select $\kappa$ such that $g_\kappa=\phi_1$, that is pick $\kappa$ such that 
+\[g_\kappa=\int_{x_0-r}^{x_0+r} G(s,x;\kappa)\;ds=\int_{x_0-r}^{x_0+r} G(x,s;\kappa)\;ds=\phi_1.\]
+ {\color{red} Need to sort the normalisation!} Clearly $\phi_1$ is dependent on the choice of $\mathcal{C}$. As a concrete example, suppose $\mathcal{C}=\mathcal{A}^{-2}$ with $\mathcal{A}:=\alpha I -\Delta$ with homogeneous Dirichlet boundary conditions. Then $\phi_1=\sin(\pi x)$ and we want to set
+ \[\int_{x_0-r}^{x_0+r} G(s,x;\kappa)\;ds=\sin(\pi x).\]
+ 
+By definition we have
+ \begin{align}
+\mathcal{L}G(x,s)&=\delta(x-s)\quad \text{in } (0,1)\\
+G(0,z)&=G(1,s)=0.
+\end{align}
+Then
+ \begin{align}
+\mathcal{L}g_\kappa&=\mathcal{L}\int_{x_0-r}^{x_0+r} G(s,x;\kappa)\;ds=\int_{x_0-r}^{x_0+r} \mathcal{L}G(s,x;\kappa)\;ds=\int_{x_0-r}^{x_0+r}\delta(x-s)\;ds=\chi([x_0-r,x_0+r])
+\end{align}
+Plugging in what we want gives
+ \begin{align}
+\mathcal{L}\phi_1&=\chi_{(x_0-r,x_0+r)}(x)
+\end{align}
+That is to say, we solve
+ \begin{align}
+-\frac{d}{dx}(\kappa(x)\frac{d}{dx}\phi_1)&=\chi_{(x_0-r,x_0+r)}(x)
+\end{align}
+for $\kappa$, giving
+ \begin{align}
+\kappa=\frac{C-\int_0^x\chi_{(x_0-r,x_0+r)}(q)\;dq}{\phi_1'}
+\end{align}
 \bibliographystyle{plain}
 \bibliography{main}
 \end{document}
