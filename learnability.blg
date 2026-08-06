@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2025)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: learnability.aux
+The style file: plain.bst
+Database file #1: main.bib
+Repeated entry---line 41 of file main.bib
+ : @article{alexanderian2021optimal
+ :                                 ,
+I'm skipping whatever remains of this entry
+Warning--to sort, need author or key in stuart2010inverse
+Warning--empty author in stuart2010inverse
+You've used 21 entries,
+            2118 wiz_defined-function locations,
+            624 strings with 7973 characters,
+and the built_in function-call counts, 7019 in all, are:
+= -- 687
+> -- 343
+< -- 1
++ -- 135
+- -- 114
+* -- 550
+:= -- 1200
+add.period$ -- 62
+call.type$ -- 21
+change.case$ -- 120
+chr.to.int$ -- 0
+cite$ -- 23
+duplicate$ -- 233
+empty$ -- 528
+format.name$ -- 114
+if$ -- 1417
+int.to.chr$ -- 0
+int.to.str$ -- 21
+missing$ -- 21
+newline$ -- 107
+num.names$ -- 40
+pop$ -- 91
+preamble$ -- 1
+purify$ -- 99
+quote$ -- 0
+skip$ -- 158
+stack$ -- 0
+substring$ -- 503
+swap$ -- 28
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 84
+warning$ -- 2
+while$ -- 66
+width$ -- 23
+write$ -- 226
+(There was 1 error message)

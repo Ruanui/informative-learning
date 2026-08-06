@@ -1,0 +1,123 @@
+\begin{thebibliography}{10}
+
+\bibitem{stuart2010inverse}
+{Inverse problems: a Bayesian perspective}.
+\newblock {\em Acta numerica}, 19:451--559, 2010.
+
+\bibitem{alexanderian2021optimal}
+Alen Alexanderian.
+\newblock {Optimal experimental design for infinite-dimensional Bayesian
+  inverse problems governed by PDEs: A review}.
+\newblock {\em Inverse Problems}, 37(4):043001, 2021.
+
+\bibitem{alexanderian2026primer}
+Alen Alexanderian.
+\newblock {A Primer on the Karhunen-Lo$\backslash$eve Expansion}.
+\newblock {\em arXiv preprint arXiv:2605.08959}, 2026.
+
+\bibitem{AlenBA}
+Alen Alexanderian, Philip~J. Gloor, and Omar Ghattas.
+\newblock {On Bayesian A- and D-Optimal Experimental Designs in Infinite
+  Dimensions}.
+\newblock {\em Bayesian Analysis}, 11(3):671 -- 695, 2016.
+
+\bibitem{alexanderian2024optimal}
+Alen Alexanderian, Ruanui Nicholson, and Noemi Petra.
+\newblock Optimal design of large-scale nonlinear bayesian inverse problems
+  under model uncertainty.
+\newblock {\em Inverse Problems}, 40(9):095001, 2024.
+
+\bibitem{alexanderian2014optimal}
+Alen Alexanderian, Noemi Petra, Georg Stadler, and Omar Ghattas.
+\newblock A-optimal design of experiments for infinite-dimensional bayesian
+  linear inverse problems with regularized $\backslash$ell\_0-sparsification.
+\newblock {\em SIAM Journal on Scientific Computing}, 36(5):A2122--A2148, 2014.
+
+\bibitem{alexanderian2018efficient}
+Alen Alexanderian and Arvind~K Saibaba.
+\newblock Efficient d-optimal design of experiments for infinite-dimensional
+  bayesian linear inverse problems.
+\newblock {\em SIAM Journal on Scientific Computing}, 40(5):A2956--A2985, 2018.
+
+\bibitem{10.1214/aos/1176346407}
+Kathryn Chaloner.
+\newblock {Optimal Bayesian experimental design for linear models}.
+\newblock {\em The Annals of Statistics}, 12(1):283 -- 300, 1984.
+
+\bibitem{chowdhary2026robust}
+Abhijit Chowdhary, Ahmed Attia, and Alen Alexanderian.
+\newblock Robust optimal experimental design of infinite-dimensional bayesian
+  nonlinear inverse problems.
+\newblock {\em SIAM Journal on Scientific Computing}, 48(2):B262--B288, 2026.
+
+\bibitem{cui2025subspace}
+Tiangang Cui, Karina Koval, Roland Herzog, and Robert Scheichl.
+\newblock Subspace accelerated measure transport methods for fast and scalable
+  sequential experimental design, with application to photoacoustic imaging.
+\newblock {\em arXiv preprint arXiv:2502.20086}, 2025.
+
+\bibitem{duong2023stability}
+Duc-Lam Duong, Tapio Helin, and Jose~Rodrigo Rojo-Garcia.
+\newblock Stability estimates for the expected utility in bayesian optimal
+  experimental design.
+\newblock {\em Inverse Problems}, 39(12):125008, 2023.
+
+\bibitem{helin2025bayesian}
+Tapio Helin, Youssef Marzouk, and Jose~Rodrigo Rojo-Garcia.
+\newblock Bayesian optimal experimental design with wasserstein information
+  criteria.
+\newblock {\em arXiv preprint arXiv:2504.10092}, 2025.
+
+\bibitem{huan2024optimal}
+Xun Huan, Jayanth Jagalur, and Youssef Marzouk.
+\newblock Optimal experimental design: Formulations and computations.
+\newblock {\em Acta Numerica}, 33:715--840, 2024.
+
+\bibitem{koval2020optimal}
+Karina Koval, Alen Alexanderian, and Georg Stadler.
+\newblock Optimal experimental design under irreducible uncertainty for linear
+  inverse problems governed by pdes.
+\newblock {\em Inverse Problems}, 36(7):075007, 2020.
+
+\bibitem{koval2024tractable}
+Karina Koval, Roland Herzog, and Robert Scheichl.
+\newblock Tractable optimal experimental design using transport maps.
+\newblock {\em Inverse Problems}, 40(12):125002, 2024.
+
+\bibitem{koval2025non}
+Karina Koval and Ruanui Nicholson.
+\newblock {Non-intrusive optimal experimental design for large-scale nonlinear
+  Bayesian inverse problems using a Bayesian approximation error approach}.
+\newblock {\em Journal of Scientific Computing}, 104(3):98, 2025.
+
+\bibitem{li2025sharp}
+Matthew~TC Li, Tiangang Cui, Fengyi Li, Youssef Marzouk, and Olivier Zahm.
+\newblock Sharp detection of low-dimensional structure in probability measures
+  via dimensional logarithmic sobolev inequalities.
+\newblock {\em Information and Inference: A Journal of the IMA}, 14(3):iaaf021,
+  2025.
+
+\bibitem{maio2026multi}
+Steven Maio, Alen Alexanderian, Karina Koval, and Ruanui Nicholson.
+\newblock Multi-type sensor placement for pde-based bayesian inverse problems.
+\newblock {\em arXiv preprint arXiv:2607.08074}, 2026.
+
+\bibitem{makinen2026batch}
+Sofia M{\"a}kinen, Andrew~B Duncan, and Tapio Helin.
+\newblock Batch-based bayesian optimal experimental design in linear inverse
+  problems.
+\newblock {\em arXiv preprint arXiv:2602.12234}, 2026.
+
+\bibitem{10.1214/15-AOS1339}
+Guillaume Sagnol and Radoslav Harman.
+\newblock {Computing exact $D$-optimal designs by mixed integer second-order
+  cone programming}.
+\newblock {\em The Annals of Statistics}, 43(5):2198 -- 2224, 2015.
+
+\bibitem{10.1214/25-BA1574}
+Daniel Waxman, Fernando Llorente, Katia Lamer, and Petar~M. Djurić.
+\newblock {Designing an optimal sensor network via minimizing information
+  loss}.
+\newblock {\em Bayesian Analysis}, pages 1 -- 29, 2025.
+
+\end{thebibliography}

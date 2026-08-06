@@ -1,8 +1,31 @@
-\documentclass[11pt,final]{amsart}
+\documentclass[ba]{imsart}
 
-\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
-\usepackage[margin=1in]{geometry}
-\usepackage{xcolor}
+
+
+
+\RequirePackage{amsthm,amsmath,amsfonts,amssymb,mathtools}
+\RequirePackage[authoryear]{natbib}%% author-year citations
+\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue,backref=page,backref=page]{hyperref}
+\RequirePackage{graphicx}
+
+\pubyear{2026}
+\arxiv{2010.00000}
+\volume{TBA}
+\issue{TBA}
+\firstpage{1}
+\lastpage{1}
+
+\startlocaldefs
+
+
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
 
 \renewcommand{\vec}[1]{\boldsymbol{#1}}
 \newcommand{\defeq}{\vcentcolon=}
@@ -40,25 +63,58 @@
 \DeclareMathOperator{\Var}{Var}
 \newcommand{\CM}{\mathcal{E}}
 
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{definition}[theorem]{Definition}
 
-\title{Some questions of learnability in linear inverse problems}
-\author{Alen Alexanderian and Ruanui Nicholson}
-\date{\today}
+\endlocaldefs
 
 \begin{document}
 
-\maketitle
+\begin{frontmatter}
+\title{Some questions of learnability in linear inverse problems}
+%\title{A sample article title with some additional note\thanksref{t1}}
+\runtitle{Some questions of learnability in linear inverse problems}
+
+
+\begin{aug}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Only one address is permitted per author. %%
+%% Only division, organization and e-mail is %%
+%% included in the address.                  %%
+%% Additional information can be included in %%
+%% the Acknowledgments section if necessary. %%
+%% ORCID can be inserted by command:         %%
+%% \orcid{0000-0000-0000-0000}               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\author[A]{\fnms{Alen}~\snm{Alexanderian}\ead[label=e1]{first@somewhere.com}}
+\and
+\author[B]{\fnms{Ruanui}~\snm{Nicholson}\ead[label=e2]{second@somewhere.com}\orcid{0000-0000-0000-0000}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Addresses                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\address[A]{Department,
+University or Company Name\printead[presep={,\ }]{e1}}
+
+\address[B]{Department,
+University or Company Name\printead[presep={,\ }]{e2,e3}}
+\runauthor{A. Alexanderian et al.}
+\end{aug}
 
 \begin{abstract}
 Insert abstract here.
 \end{abstract}
+
+
+\begin{keyword}[class=MSC]
+\kwdgroup[type=primary]{\kwd{00X00}
+\kwd{00X00}}
+\kwdgroup[type=secondary]{\kwd{00X00}}
+\end{keyword}
+
+\begin{keyword}
+\kwd{First keyword}
+\kwd{second keyword}
+\end{keyword}
+
+\end{frontmatter}
 
 \section{Introduction}
 Let $\M$ be an infinite dimensional real separable Hilbert space. 
@@ -580,7 +636,7 @@ with $\kappa>0$ up to us. It will be useful to let $\mathcal{L}=-\frac{d}{dx}(\k
 
 \[\B u:=\int_{x_0-r}^{x_0+r} u(x) \;dx\]
 
-Then we can write the measurement (in terms of $m$) as
+Then we can write the measurement (in terms of $m$) as~\cite{AlenBA,alexanderian2021optimal}
 
 \[\B u= \int_{x_0-r}^{x_0+r}  \int_{0}^{1} G(s,x;\kappa)m(x) \;dx\;ds=  \int_{0}^{1} \int_{x_0-r}^{x_0+r} G(s,x;\kappa) \;ds\; m(x)\;dx=\langle g_\kappa,m\rangle,\]
 with $G(s,x;\kappa)$ the Green's function related to (\ref{eq: fwd}), and $g_\kappa=\int_{x_0-r}^{x_0+r} G(s,x;\kappa)\;ds$. Now, if $\mathcal{C}=\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_i$,
@@ -610,6 +666,11 @@ for $\kappa$, giving
  \begin{align}
 \kappa=\frac{C-\int_0^x\chi_{(x_0-r,x_0+r)}(q)\;dq}{\phi_1'}
 \end{align}
+
+
+
+\nocite{*}
 \bibliographystyle{plain}
 \bibliography{main}
+
 \end{document}
