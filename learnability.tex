@@ -218,11 +218,19 @@ with
 \section{Informativeness of the forward model}
 \subsection{Infinite dimensions}
 
-We consider optimal experimental design (OED) in the Bayesian setting for infinite dimensional linear inverse problems. In particular, let $m$ have Gaussian prior law $\mathcal{N}(m_0,\mathcal{C})$ on the Hilbert space $\mathcal{H}$. The prior covariance operator $\mathcal{C}$ is assumed to be {\em strictly} positive self-adjoint and trace class. In what follows it will useful to consider the spectral decomposition of the prior covariance operator,
+We consider optimal experimental design (OED) in the Bayesian setting for infinite dimensional linear inverse problems. In particular, let $m$ have Gaussian prior law $\mathcal{N}(m_0,\mathcal{C})$ on the Hilbert space $\M$. The prior covariance operator $\mathcal{C}$ is assumed to be {\em strictly} positive self-adjoint and trace class. In what follows it will useful to consider the spectral decomposition of the prior covariance operator,
 \begin{align}
     \mathcal{C}=\sum_{i=1}^\infty\lambda_i\phi_i\otimes\phi_i,\label{eq:KLexp}
 \end{align}
-where $\lambda_1\geq \lambda_2\geq\cdots$ with $\lambda_i>0$ for $i\in\{1,2,\dots\}.$ We will assume to begin with that the multiplicity of $\lambda_1$ is 1.
+where $\lambda_1\geq \lambda_2\geq\cdots$ with $\lambda_i>0$ for $i\in\{1,2,\dots\}.$ We will assume to begin with that the multiplicity of each $\lambda_i$ is 1.
+
+\begin{proposition}\label{prp:Aopt1}
+Let $\mathcal{C}$ strictly positive self-adjoint trace class operator on $\M$ with eigenpairs $(\lambda_i,\phi_i)$ ordered so that $\lambda_1\geq \lambda_2\geq\cdots >0$. Among all scalar linear observation operators $F\in\mathcal{L}(\M,\mathbb{R})$, satisfying $\|A\|=1$, the A-optimality and D-optimality criteria are optimised by 
+\[\F m=\langle \phi_1,m\rangle_\M.\]
+\end{proposition}
+\begin{proof}
+We first prove the case for A-optimality case and then for the D-optimality case. In both, we assume $e\sim\mathcal{N}(0,\sigma_e^2)$.
+\end{proof}
 
 We initially consider the set up 
 \[y=\ell(m)+e=\langle g,m\rangle_\mathcal{H} + e=Am+e,\]
@@ -257,7 +265,7 @@ meaning that we have equality in (\ref{eq:diff}) when $A\phi_i=\langle \phi_1,\p
 
 
 
-\subsection{Finite dimensions}
+\subsection{Finite dimensions.....\bf{I think this can all be deleted}}
 Suppose we are interested in a parameter $\mathbb{R}^n\ni m\sim\pi(m)=\mathcal{N}(m_0,\Gamma_m)$. We {\em wish} to collect data $d\in\mathbb{R}$ related through a linear mapping of the form
 \[d=w^\top m+e,\quad w\in\mathbb{R}^n,\quad \mathbb{R}\ni e\sim\mathcal{N}(0,\sigma_e^2).\]
 Then what is the {\em best} $w\in\mathbb{R}^n$ to choose. Of course `best' is up to interpretation, but if go with reducing the uncertainty the most, then A- and D-optimality are natural metrics. In any case, the posterior covariance matrix is of the form
